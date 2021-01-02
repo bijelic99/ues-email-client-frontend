@@ -1,0 +1,18 @@
+@import '../styles/values.scss';
+
+.register{
+    height: 100vh;
+
+    &_form {
+        margin: $form-margin;
+        &:not(:first-child) {
+            margin-top: $vertical-form-item-margin;
+        }
+
+        button {
+            margin-bottom: $vertical-form-item-margin;
+            margin-left: $horizontal-form-item-margin;
+            margin-right: $horizontal-form-item-margin;
+        }
+    }
+}
