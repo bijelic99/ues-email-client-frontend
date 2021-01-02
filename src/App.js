@@ -1,11 +1,13 @@
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import Login from './Login/Login'
-const { BrowserRouter: Router, Route } = require("react-router-dom")
-const { default: Register } = require("./Register/Register")
+import Register from './Register/Register'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Navbar from './components/Navbar/Navbar'
 
 const App = () => {
   return (
     <div>
+      <Navbar visible />
       <Router>
         <Route path='/register'>
           <Register />
