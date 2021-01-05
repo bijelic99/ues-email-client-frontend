@@ -1,0 +1,25 @@
+@import "../../styles/values.scss";
+
+.navbar {
+    &_toolbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        &_item {
+            &_left {
+                display: inline-flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+            }
+
+            &_right {
+                display: inline-flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+            }
+        }
+    }
+}

@@ -1,36 +1,87 @@
-import { AppBar, Divider, Drawer, IconButton, List, ListItem, Toolbar, Typography } from "@material-ui/core"
-import { ChevronLeft, Menu as MenuIcon } from '@material-ui/icons'
+import { AppBar, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core"
+import { AccountCircle, ChevronLeft, Menu as MenuIcon, Inbox, Contacts } from '@material-ui/icons'
 import { React, useState } from 'react'
+import AccountListItem from "./AccountListItem/AccountListItem"
+import './Navbar.scss'
 
 const Navbar = ({ visible }) => {
-    const [open, setOpen] = useState(false)
+    const [drawerOpen, setDrawerOpen] = useState(false)
+
+    const [accountMenuOpen, setAccountMenuOpen] = useState(false)
+
+    const [accountMenuAnchorEl, setAccountMenuAnchorEl] = useState(null)
+
+    const [user, setUser] = useState({
+        accounts: [
+            {
+                email: "random@mail.com"
+            },
+            {
+                email: "rando2m@mail.com"
+            }
+        ]
+    })
+
 
     const handleDrawerOpen = (e) => {
-        setOpen(true);
+        setDrawerOpen(true);
     };
 
     const handleDrawerClose = (e) => {
-        setOpen(false);
+        setDrawerOpen(false);
     };
 
+    const handleAccountMenuOpen = (e) => {
+        setAccountMenuOpen(true)
+    }
+
+    const handleAccountMenuClosed = (e) => {
+        setAccountMenuOpen(false)
+    }
+
     return visible && (
-        <div>
+        <div className="navbar">
             <AppBar position='static'>
-                <Toolbar>
-                    <IconButton
-                        edge='start'
-                        color='inherit'
-                        aria-label='menu'
-                        onClick={handleDrawerOpen}>
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant='h6'>
-                        Email client
+                <Toolbar className='navbar_toolbar'>
+                    <div className="navbar_toolbar_item_left">
+                        <IconButton
+                            edge='start'
+                            color='inherit'
+                            aria-label='menu'
+                            onClick={handleDrawerOpen}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant='h6'>
+                            Email client
                     </Typography>
+                    </div>
+                    <div className="navbar_toolbar_item_right">
+                        <IconButton
+                            aria-label="user account"
+                            aria-controls="account_menu"
+                            aria-haspopup="true"
+                            onClick={handleAccountMenuOpen}
+                            color="inherit"
+                            ref={setAccountMenuAnchorEl}
+                        >
+                            <AccountCircle />
+                            <Menu
+                                id="account_menu"
+                                anchorEl={accountMenuAnchorEl}
+                                keepMounted
+                                open={accountMenuOpen}
+                                onClose={handleAccountMenuClosed}
+                            >
+                                <MenuItem>Profile</MenuItem>
+                                <MenuItem>Logout</MenuItem>
+                            </Menu>
+                        </IconButton>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Drawer
-                open={open}
+                open={drawerOpen}
                 variant='persistent'
                 anchor='left'>
                 <IconButton onClick={handleDrawerClose}>
@@ -38,9 +89,26 @@ const Navbar = ({ visible }) => {
                 </IconButton>
                 <Divider />
                 <List>
-                    <ListItem>
-                        A thing
+                    <ListItem button component="a" href="#">
+                        <ListItemIcon>
+                            <Inbox/>
+                        </ListItemIcon>
+                        <ListItemText primary="Inbox" />
                     </ListItem>
+                    <ListItem button component="a" href="#">
+                        <ListItemIcon>
+                            <Contacts/>
+                        </ListItemIcon>
+                        <ListItemText primary="Contacts" />
+                    </ListItem>
+                </List>
+                <Divider />
+                <List>
+
+                    {
+                        user.accounts.map(account => (<AccountListItem account={account} />))
+                    }
+
                 </List>
             </Drawer>
 
