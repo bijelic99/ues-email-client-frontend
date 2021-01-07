@@ -1,0 +1,12 @@
+@import '../../styles/values.scss';
+
+.add-contact {
+    margin-top: $component-top-spacing;
+}
+.contact-form {
+    padding: $vertical-form-item-spacing $horizontal-form-item-spacing;
+
+    & > * > *:not(:first-child) {
+        margin-top: $form-spacing;
+    }
+}
